@@ -1,4 +1,4 @@
-package org.dgf.model;
+package org.dgf.user;
 
 public enum UserType {
     ADMIN,

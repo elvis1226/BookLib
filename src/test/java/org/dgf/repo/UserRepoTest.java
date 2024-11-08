@@ -1,7 +1,7 @@
 package org.dgf.repo;
 
-import org.dgf.model.User;
-import org.dgf.model.UserType;
+import org.dgf.user.User;
+import org.dgf.user.UserType;
 
 import org.junit.jupiter.api.Test;
 
