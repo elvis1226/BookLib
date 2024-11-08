@@ -1,5 +1,5 @@
 # BookLib
-Simple book library management system
+Simple library management system
 
 # Requirement
 1. Users (User) and Administrators (Admin) can register and log in to the system.
@@ -9,12 +9,17 @@ Simple book library management system
    again, the system should merge the inventory rather than create a new one. Also,
    administrators cannot delete books that are currently being borrowed by users.
 
+# Environment
+- JDK 22
+- Maven 3.8.x
+
+# Build
+- mvn clean install
+
 # Run
-
+ 
 # Support Commands
-
 - register admin Alice password1
-
 - register user Bob password2
 - login Alice password1
 - add "Clean Code" "Robert C. Martin" 5
