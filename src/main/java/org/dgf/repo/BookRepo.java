@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BookRepo {
-    private Map<Book, Integer> books;
+    private Map<Book, BookStatus> books;
 
     public BookRepo() {
         this.books = new HashMap<>();

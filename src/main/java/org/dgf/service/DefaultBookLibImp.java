@@ -1,34 +1,34 @@
 package org.dgf.service;
 
-import org.dgf.model.Book;
 import org.dgf.model.User;
 import org.dgf.repo.BookRepo;
-import org.dgf.repo.UserRepo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
+
+import static org.dgf.model.User.anonymous;
+
 
 public class DefaultBookLibImp implements BookLib{
     private BookRepo bookRepo;
-    public UserRepo userRepo;
+    private Authenticator authenticator;
 
     public DefaultBookLibImp() {
-        new DefaultBookLibImp(new BookRepo(), new UserRepo());
+        new DefaultBookLibImp(new BookRepo(), new Authenticator());
     }
 
-    public DefaultBookLibImp(BookRepo bookRepo, UserRepo userRepo) {
+    public DefaultBookLibImp(BookRepo bookRepo, Authenticator authenticator) {
         this.bookRepo = bookRepo;
-        this.userRepo = userRepo;
+        this.authenticator = authenticator;
     }
 
     @Override
     public boolean login(String user, String password) {
-        return false;
+        return this.authenticator.login(user, password);
     }
 
     @Override
-    public boolean register(String user, String password) {
-        return false;
+    public boolean register(String user, String password, String type) {
+        return this.authenticator.register(user, password, type);
     }
 
     @Override

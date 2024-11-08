@@ -2,7 +2,7 @@ package org.dgf.service;
 
 public interface BookLib {
     boolean login(String user, String password);
-    boolean register(String user, String password);
+    boolean register(String user, String password, String type);
 
     void listBooks();
     boolean searchBook(String bookName);
