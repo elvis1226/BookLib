@@ -1,4 +1,4 @@
-package org.dgf.action;
+package org.dgf.service.action;
 
 import org.dgf.repo.BookRepo;
 import org.dgf.service.Authenticator;

@@ -1,7 +1,9 @@
 package org.dgf.service;
 
-import org.dgf.action.*;
 import org.dgf.repo.UserRepo;
+import org.dgf.service.action.AuthAction;
+import org.dgf.service.action.Login;
+import org.dgf.service.action.Register;
 import org.dgf.user.Administrator;
 import org.dgf.user.User;
 import org.dgf.util.Logger;

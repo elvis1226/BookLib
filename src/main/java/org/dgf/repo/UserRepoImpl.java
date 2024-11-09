@@ -1,6 +1,5 @@
 package org.dgf.repo;
 
-import org.dgf.action.Login;
 import org.dgf.user.Administrator;
 import org.dgf.user.NormalUser;
 import org.dgf.user.User;

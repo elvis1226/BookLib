@@ -1,12 +1,12 @@
-package org.dgf.action;
+package org.dgf.service.action;
 
 import org.dgf.repo.BookRepo;
 import org.dgf.service.Authenticator;
 
 import java.util.List;
 
-public class ReturnBook extends BookAction {
-    public ReturnBook(Authenticator authenticator, BookRepo bookRepo) {
+public class DeleteBook extends BookAction {
+    public DeleteBook(Authenticator authenticator, BookRepo bookRepo) {
         super(authenticator, bookRepo);
     }
 
