@@ -1,16 +1,19 @@
 package org.dgf.repo;
 
-import java.util.HashMap;
-import java.util.Map;
 
-public class BookRepo {
-    private Map<String, BookStatus> books;
+import java.util.Optional;
+import java.util.Set;
 
-    public BookRepo() {
-        this.books = new HashMap<>();
-    }
+public interface BookRepo {
+    void add(String book, int inventory);
 
-    public static BookRepo creatBookRepo(){
-        return new BookRepo();
-    }
+    boolean borrow(String user, String book);
+
+    boolean delete(String book);
+
+    Set<String> list();
+
+    Optional<BookInfo> find(String book);
+
+    void returnBook(String user, String book);
 }

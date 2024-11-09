@@ -10,8 +10,8 @@ public class AuthenticatorImpl implements Authenticator{
     private final UserRepo userRepo;
     private Map<String, LoginStatus> userStatus;
 
-    public AuthenticatorImpl() {
-        this.userRepo = new UserRepo();
+    public AuthenticatorImpl(UserRepo userRepo) {
+        this.userRepo = userRepo;
         this.userStatus = new HashMap<>();
     }
 

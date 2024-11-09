@@ -16,7 +16,7 @@ public class UserRepoTest {
     public void Given_UserNotExist_ThenAdd() {
         Map<String, User> users = new HashMap<>();
         users.put("Wang", new User("Wang","123"));
-        UserRepo userRepo = new UserRepo(users);
+        UserRepo userRepo = new UserRepoImpl(users);
         boolean isAdded = userRepo.add("Zhang", "124", UserType.USER.toString());
         assertTrue(isAdded);
     }
@@ -25,7 +25,7 @@ public class UserRepoTest {
     public void Given_UserExist_ThenNoAdd() {
         Map<String, User> users = new HashMap<>();
         users.put("Wang", new User("Wang","123"));
-        UserRepo userRepo = new UserRepo(users);
+        UserRepo userRepo = new UserRepoImpl(users);
         boolean isAdded = userRepo.add("Wang", "123", UserType.USER.toString());
         assertTrue(!isAdded);
     }
@@ -34,7 +34,7 @@ public class UserRepoTest {
     public void Given_UserNamePasswordMatch_ThenExist() {
         Map<String, User> users = new HashMap<>();
         users.put("Wang", new User("Wang","123"));
-        UserRepo userRepo = new UserRepo(users);
+        UserRepo userRepo = new UserRepoImpl(users);
         boolean existed = userRepo.exist("Wang", "123");
         assertTrue(existed);
     }
@@ -43,7 +43,7 @@ public class UserRepoTest {
     public void Given_UserNamePasswordNotMatch_ThenNotExist() {
         Map<String, User> users = new HashMap<>();
         users.put("Wang", new User("Wang","123"));
-        UserRepo userRepo = new UserRepo(users);
+        UserRepo userRepo = new UserRepoImpl(users);
         boolean existed = userRepo.exist("Wang", "122");
         assertTrue(!existed);
     }
