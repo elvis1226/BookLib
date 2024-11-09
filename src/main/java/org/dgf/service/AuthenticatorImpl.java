@@ -1,34 +1,53 @@
 package org.dgf.service;
 
+import org.dgf.action.*;
 import org.dgf.repo.LoginStatus;
 import org.dgf.repo.UserRepo;
+import org.dgf.user.Administrator;
+import org.dgf.user.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class AuthenticatorImpl implements Authenticator{
     private final UserRepo userRepo;
-    private Map<String, LoginStatus> userStatus;
+    private final Map<String, AuthAction> actions;
 
     public AuthenticatorImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
-        this.userStatus = new HashMap<>();
-    }
 
-    public boolean register(String name, String password, String type){
-        return this.userRepo.add(name, password, type);
-    }
-
-    public boolean login(String name, String password) {
-        if (!this.userRepo.exist(name, password)) {
-            return false;
-        }
-        this.userStatus.put(name, LoginStatus.LOGON);
-
-        return true;
+        this.actions = Map.of("login",    new Login(this, this.userRepo),
+                              "register", new Register(this, this.userRepo));
     }
 
     public boolean isLogin(String name) {
-        return this.userStatus.containsKey(name) && this.userStatus.get(name).equals(LoginStatus.LOGON);
+        return this.userRepo.isLogin(name);
+    }
+
+    public boolean isAdmin(){
+        return isAdmin(this.userRepo.getLogonUser());
+    }
+
+    public boolean isAdmin(String name) {
+        Optional<User> optUser = this.userRepo.find(name);
+        if(optUser.isEmpty()) {
+            return false;
+        }
+        User user = optUser.get();
+        if (user instanceof Administrator) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getLogonUser() {
+        return this.userRepo.getLogonUser();
+    }
+
+    @Override
+    public void process(List<String> arguments) {
+        this.actions.get(arguments.get(0)).execute(arguments);
     }
 }

@@ -1,4 +1,34 @@
 package org.dgf.action;
 
-public class Login {
+import org.dgf.repo.BookRepo;
+import org.dgf.repo.UserRepo;
+import org.dgf.service.Authenticator;
+import org.dgf.user.User;
+import org.dgf.util.Logger;
+
+import java.util.List;
+import java.util.Optional;
+
+public class Login extends AuthAction {
+
+    public Login(Authenticator authenticator, UserRepo userRepo) {
+        super(authenticator, userRepo);
+    }
+
+    @Override
+    public void execute(List<String> arguments) {
+        if (arguments.size() != 3) {
+            return;
+        }
+        String name = arguments.get(1);
+        String password = arguments.get(2);
+
+        if (!this.userRepo.exist(name, password)) {
+            return;
+        }
+        this.userRepo.login(name);
+
+        Optional<User> user = this.userRepo.find(name);
+        Logger.info(user.get().toString() + " successfully logged in.");
+    }
 }

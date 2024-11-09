@@ -1,41 +1,37 @@
 package org.dgf.service;
 
+import org.dgf.action.*;
 import org.dgf.repo.BookRepo;
 
+import java.util.List;
+import java.util.Map;
+
+
 public class BookLibFunctionsImpl implements BookLibFunctions{
+    private Map<String, Class> actions = Map.of("add",    AddBook.class,
+                                                             "delete", DeleteBook.class,
+                                                             "search", SearchBook.class,
+                                                             "list",   ListBook.class,
+                                                             "borrow", BorrowBook.class,
+                                                             "return", ReturnBook.class);
+
+    private final Authenticator authenticator;
     private final BookRepo bookRepo;
 
-    public BookLibFunctionsImpl(BookRepo bookRepo) {
+    public BookLibFunctionsImpl(Authenticator authenticator, BookRepo bookRepo) {
+        this.authenticator = authenticator;
         this.bookRepo = bookRepo;
     }
 
     @Override
-    public void listBooks() {
+    public void process(List<String> arguments) {
+        String command = arguments.get(0);
+
 
     }
 
-    @Override
-    public boolean searchBook(String bookName) {
-        return false;
-    }
-
-    @Override
-    public void addBook(String bookName, int inventory) {
+    private void buildActions() {
 
     }
 
-    @Override
-    public boolean borrowBook(String bookName) {
-        return false;
-    }
-
-    @Override
-    public void returnBook(String bookName) {
-
-    }
-
-    @Override
-    public boolean deleteBook(String bookName) {
-        return false;
-    }
 }
