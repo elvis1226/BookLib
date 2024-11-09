@@ -6,7 +6,7 @@ import org.dgf.service.Authenticator;
 import java.util.List;
 
 public class ReturnBook extends BookAction {
-    public ReturnBook(Authenticator authenticator, BookRepo bookRepo, List<String> arguments) {
+    public ReturnBook(Authenticator authenticator, BookRepo bookRepo) {
         super(authenticator, bookRepo);
     }
 

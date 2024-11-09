@@ -1,12 +1,10 @@
 package org.dgf.service;
 
 import org.dgf.action.*;
-import org.dgf.repo.LoginStatus;
 import org.dgf.repo.UserRepo;
 import org.dgf.user.Administrator;
 import org.dgf.user.User;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
