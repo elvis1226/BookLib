@@ -4,6 +4,7 @@ import org.dgf.action.*;
 import org.dgf.repo.UserRepo;
 import org.dgf.user.Administrator;
 import org.dgf.user.User;
+import org.dgf.util.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,8 @@ public class AuthenticatorImpl implements Authenticator{
 
     @Override
     public void process(List<String> arguments) {
-        this.actions.get(arguments.get(0)).execute(arguments);
+        String command = arguments.get(0);
+        Logger.debug("process auth command " + command);
+        this.actions.get(command).execute(arguments);
     }
 }

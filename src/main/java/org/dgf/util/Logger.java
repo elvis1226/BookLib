@@ -1,7 +1,17 @@
 package org.dgf.util;
 
-public class Logger {
+public final class Logger {
+    private static boolean debug;
 
+    static {
+        debug = Boolean.parseBoolean(System.getenv("debug"));
+    }
+
+    public static void debug(String message) {
+        if(debug) {
+            System.out.println("DEBUG : " + message);
+        }
+    }
     public static void info(String message) {
         System.out.println(message);
     }

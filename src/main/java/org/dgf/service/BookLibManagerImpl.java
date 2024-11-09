@@ -11,8 +11,8 @@ public class BookLibManagerImpl implements BookLibManager {
     private BookLibFunctions functions;
     private Authenticator authenticator;
 
-    private final Set<String> AUTH_COMMANDS = Set.of("register", "login");
-    private final Set<String> BOOK_COMMANDS = Set.of("add", "delete", "list", "search", "borrow", "return");
+    private final static Set<String> AUTH_COMMANDS = Set.of("register", "login");
+    private final static Set<String> BOOK_COMMANDS = Set.of("add", "delete", "list", "search", "borrow", "return");
 
     public BookLibManagerImpl(BookLibFunctions functions, Authenticator authenticator) {
         this.functions = functions;

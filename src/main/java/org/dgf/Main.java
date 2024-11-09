@@ -1,29 +1,28 @@
 package org.dgf;
 
 import org.dgf.service.BookLibManager;
+import org.dgf.util.Logger;
 
-import java.util.ArrayList;
+import java.io.Console;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] argvs) {
-        BookLibManager manager = Config.assemble();
+        final BookLibManager manager = Config.assemble();
+        final Console console = System.console();
+        final String delimiter = " ";
+        System.out.println();
 
         while (true) {
-
             try {
-                Scanner in = new Scanner(System.in);
-                List<String> arguments = new ArrayList<>();
-                while (in.hasNext()) {
-                    arguments.add(in.next());
-                }
+                String line = console.readLine();
+                List<String> arguments = Stream.of(line.split(delimiter)).toList();
                 manager.process(arguments);
-
             }
-            catch (Exception e) {
-
+            catch(Exception e) {
+                Logger.error(e.getMessage());
             }
             finally {
 

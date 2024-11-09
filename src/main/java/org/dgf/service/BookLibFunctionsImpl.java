@@ -2,6 +2,7 @@ package org.dgf.service;
 
 import org.dgf.action.*;
 import org.dgf.repo.BookRepo;
+import org.dgf.util.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class BookLibFunctionsImpl implements BookLibFunctions{
     @Override
     public void process(List<String> arguments) {
         String command = arguments.get(0);
+        Logger.debug("process book lib command " + command);
         this.actions.get(command).execute(arguments);
 
     }
