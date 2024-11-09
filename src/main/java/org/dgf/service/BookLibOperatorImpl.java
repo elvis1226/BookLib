@@ -7,13 +7,13 @@ import org.dgf.util.Logger;
 import java.util.List;
 import java.util.Map;
 
-public class BookLibFunctionsImpl implements BookLibFunctions{
+public class BookLibOperatorImpl implements BookLibOperator {
     private final Map<String, BookAction> actions;
 
     private final Authenticator authenticator;
     private final BookRepo bookRepo;
 
-    public BookLibFunctionsImpl(Authenticator authenticator, BookRepo bookRepo) {
+    public BookLibOperatorImpl(Authenticator authenticator, BookRepo bookRepo) {
         this.authenticator = authenticator;
         this.bookRepo = bookRepo;
         this.actions = buildActions();

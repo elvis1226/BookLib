@@ -8,14 +8,14 @@ import java.util.Set;
 
 
 public class BookLibManagerImpl implements BookLibManager {
-    private BookLibFunctions functions;
+    private BookLibOperator operator;
     private Authenticator authenticator;
 
     private final static Set<String> AUTH_COMMANDS = Set.of("register", "login");
     private final static Set<String> BOOK_COMMANDS = Set.of("add", "delete", "list", "search", "borrow", "return");
 
-    public BookLibManagerImpl(BookLibFunctions functions, Authenticator authenticator) {
-        this.functions = functions;
+    public BookLibManagerImpl(BookLibOperator operator, Authenticator authenticator) {
+        this.operator = operator;
         this.authenticator = authenticator;
     }
 
@@ -30,8 +30,7 @@ public class BookLibManagerImpl implements BookLibManager {
             this.authenticator.process(arguments);
         }
         else if(this.BOOK_COMMANDS.contains(command)) {
-
-            this.functions.process(arguments);
+            this.operator.process(arguments);
         }
         else {
             throw new IllegalArgumentException("Doesnt support command '" + command + "'");

@@ -14,7 +14,7 @@ public class Config {
         BookRepo bookRepo = new BookRepoImpl();
 
         Authenticator authenticator = new AuthenticatorImpl(userRepo);
-        BookLibFunctions functions = new BookLibFunctionsImpl(authenticator, bookRepo);
+        BookLibOperator functions = new BookLibOperatorImpl(authenticator, bookRepo);
 
         BookLibManager manager = new BookLibManagerImpl(functions, authenticator);
 
