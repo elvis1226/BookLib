@@ -31,4 +31,4 @@ java -classpath target/BookLib-1.0-SNAPSHOT-shaded.jar org.dgf.Main
 - delete <BOOK_NAME>
 
 # Log Screenshot
-- Log_screenshot.jpg
+- Log_Screenshot.jpg
