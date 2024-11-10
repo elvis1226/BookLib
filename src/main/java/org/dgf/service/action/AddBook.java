@@ -18,12 +18,13 @@ public class AddBook extends BookAction {
             Logger.warn("User " + super.authenticator.getLogonUser() + " is not admin");
             return;
         }
-        if (arguments.size() != 3) {
+        if (arguments.size() != 4) {
+            Logger.warn("Not enough arguments for add book");
             return;
         }
         String book = arguments.get(1);
-        String inventory = arguments.get(2);
-        super.bookRepo.add(book, Integer.parseInt(inventory));
-        Logger.info("Book " + book + " added successfully, inventory: " + inventory + ".");
+        String inventory = arguments.get(3);
+        String author = arguments.get(2);
+        super.bookRepo.add(book, Integer.parseInt(inventory), author);
     }
 }

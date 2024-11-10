@@ -4,6 +4,7 @@ import org.dgf.util.Logger;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BookRepoImpl implements BookRepo{
     private Map<String, BookInfo> books;
@@ -13,14 +14,16 @@ public class BookRepoImpl implements BookRepo{
     }
 
     @Override
-    public void add(String book, int inventory) {
+    public void add(String book, int inventory, String author) {
         if (this.books.containsKey(book)){
             BookInfo oldInfo = this.books.get(book);
-            BookInfo newInfo = new BookInfo(inventory+oldInfo.getInventory(), oldInfo.getBorrowedByWho());
+            BookInfo newInfo = new BookInfo(inventory+oldInfo.getInventory(), author, oldInfo.getBorrowedByWho());
             this.books.put(book, newInfo);
+            Logger.info("Book \"" + book + "\" inventory successfully updated, new inventory: " + inventory );
         }
         else {
-            this.books.put(book, new BookInfo(inventory));
+            this.books.put(book, new BookInfo(inventory, author));
+            Logger.info("Book \"" + book + "\" by " + author + " added successfully, inventory: " + inventory + ".");
         }
     }
 
@@ -43,9 +46,9 @@ public class BookRepoImpl implements BookRepo{
         borrowed.addAll(oldInfo.getBorrowedByWho());
         borrowed.add(user);
 
-        BookInfo newInfo = new BookInfo(oldInfo.getInventory() - 1, borrowed);
+        BookInfo newInfo = new BookInfo(oldInfo.getInventory() - 1, oldInfo.getAuthor(), borrowed);
         this.books.put(book, newInfo);
-
+        Logger.info("Book \"" + book + "\" successfully borrowed");
         return true;
     }
 
@@ -57,18 +60,21 @@ public class BookRepoImpl implements BookRepo{
         }
         BookInfo info = this.books.get(book);
         if (info.isBorrowed()) {
-            Logger.warn("Cannot delete book " + book + " because it is currently borrowed");
+            Logger.info("Cannot delete book \"" + book + "\" because it is currently borrowed");
             return false;
         }
 
         this.books.remove(book);
-
+        Logger.info("Book \"" + book + "\" is deleted");
         return true;
     }
 
     @Override
-    public Set<String> list() {
-        return this.books.keySet();
+    public void list() {
+        final Iterator<Integer> index = IntStream.range(1, books.size()+1).iterator();
+        books.entrySet().forEach(
+                e -> Logger.info(index.next() + ". " + e.getKey() + e.getValue().toString())
+        );
     }
 
     @Override
@@ -90,7 +96,7 @@ public class BookRepoImpl implements BookRepo{
                                       .stream()
                                       .filter(x-> !x.equals(user))
                                       .collect(Collectors.toSet());
-        BookInfo newInfo = new BookInfo(oldInfo.getInventory() + 1, borrowed);
+        BookInfo newInfo = new BookInfo(oldInfo.getInventory() + 1, oldInfo.getAuthor(), borrowed);
         this.books.put(book, newInfo);
     }
 }
