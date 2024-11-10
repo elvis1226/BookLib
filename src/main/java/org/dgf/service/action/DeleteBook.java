@@ -13,6 +13,10 @@ public class DeleteBook extends BookAction {
 
     @Override
     public void execute(List<String> arguments) {
+        if (! super.authenticator.isAdmin()) {
+            Logger.warn("User " + super.authenticator.getLogonUser() + " is not admin");
+            return;
+        }
         if(arguments.size() != 3) {
             Logger.warn("Not enough arguments for delete book");
         }

@@ -5,7 +5,9 @@ import org.dgf.util.Logger;
 
 import java.io.Console;
 import java.util.List;
-import java.util.stream.Stream;
+
+import static org.dgf.util.Utility.parseLine;
+
 
 public class Main {
 
@@ -17,7 +19,7 @@ public class Main {
         while (true) {
             try {
                 String line = console.readLine();
-                List<String> arguments = Stream.of(line.split(delimiter)).toList();
+                List<String> arguments = parseLine(line);
                 manager.process(arguments);
             }
             catch(Exception e) {

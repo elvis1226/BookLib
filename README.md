@@ -17,7 +17,8 @@ Simple library management system
 - mvn clean install
 
 # Run
- 
+java -classpath target/BookLib-1.0-SNAPSHOT-shaded.jar org.dgf.Main
+
 # Support Commands
 - register admin <USER_NAME> <PASSWORD>
 - register user <USER_NAME> <PASSWORD>
