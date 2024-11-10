@@ -17,12 +17,14 @@ public class Login extends AuthAction {
     @Override
     public void execute(List<String> arguments) {
         if (arguments.size() != 3) {
+            Logger.warn("Failed to login, pls check arguments");
             return;
         }
         String name = arguments.get(1);
         String password = arguments.get(2);
 
         if (!this.userRepo.exist(name, password)) {
+            Logger.warn("Failed to login, pls check user name and password");
             return;
         }
         this.userRepo.login(name);

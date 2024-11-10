@@ -53,4 +53,9 @@ public class AuthenticatorImpl implements Authenticator{
         Logger.debug("process auth command " + command);
         this.actions.get(command).execute(arguments);
     }
+
+    @Override
+    public boolean isDoable(String command) {
+        return this.actions.containsKey(command);
+    }
 }

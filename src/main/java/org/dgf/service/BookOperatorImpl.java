@@ -7,13 +7,13 @@ import org.dgf.util.Logger;
 import java.util.List;
 import java.util.Map;
 
-public class BookLibOperatorImpl implements BookLibOperator {
+public class BookOperatorImpl implements BookOperator {
     private final Map<String, BookAction> actions;
 
     private final Authenticator authenticator;
     private final BookRepo bookRepo;
 
-    public BookLibOperatorImpl(Authenticator authenticator, BookRepo bookRepo) {
+    public BookOperatorImpl(Authenticator authenticator, BookRepo bookRepo) {
         this.authenticator = authenticator;
         this.bookRepo = bookRepo;
         this.actions = buildActions();
@@ -27,8 +27,13 @@ public class BookLibOperatorImpl implements BookLibOperator {
 
     }
 
+    @Override
+    public boolean isDoable(String command) {
+        return this.actions.containsKey(command);
+    }
+
     private Map<String, BookAction> buildActions() {
-          return Map.of(
+        return Map.of(
                 "add",    new AddBook(authenticator, bookRepo),
                 "delete", new DeleteBook(authenticator, bookRepo),
                 "search", new SearchBook(authenticator, bookRepo),
@@ -36,5 +41,4 @@ public class BookLibOperatorImpl implements BookLibOperator {
                 "borrow", new BorrowBook(authenticator, bookRepo),
                 "return", new ReturnBook(authenticator, bookRepo));
     }
-
 }

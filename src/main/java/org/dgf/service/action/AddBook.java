@@ -24,5 +24,6 @@ public class AddBook extends BookAction {
         String book = arguments.get(1);
         String inventory = arguments.get(2);
         super.bookRepo.add(book, Integer.parseInt(inventory));
+        Logger.info("Book " + book + " added successfully, inventory: " + inventory + ".");
     }
 }

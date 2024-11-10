@@ -1,6 +1,8 @@
-package org.dgf.service;
+package org.dgf.flow;
 
 
+import org.dgf.service.Authenticator;
+import org.dgf.service.BookOperator;
 import org.dgf.util.Logger;
 
 import java.util.List;
@@ -8,13 +10,10 @@ import java.util.Set;
 
 
 public class BookLibManagerImpl implements BookLibManager {
-    private BookLibOperator operator;
+    private BookOperator operator;
     private Authenticator authenticator;
 
-    private final static Set<String> AUTH_COMMANDS = Set.of("register", "login");
-    private final static Set<String> BOOK_COMMANDS = Set.of("add", "delete", "list", "search", "borrow", "return");
-
-    public BookLibManagerImpl(BookLibOperator operator, Authenticator authenticator) {
+    public BookLibManagerImpl(BookOperator operator, Authenticator authenticator) {
         this.operator = operator;
         this.authenticator = authenticator;
     }
@@ -26,10 +25,10 @@ public class BookLibManagerImpl implements BookLibManager {
             return;
         }
         String command = arguments.get(0);
-        if (this.AUTH_COMMANDS.contains(command)) {
+        if (this.authenticator.isDoable(command)) {
             this.authenticator.process(arguments);
         }
-        else if(this.BOOK_COMMANDS.contains(command)) {
+        else if(this.operator.isDoable(command)) {
             this.operator.process(arguments);
         }
         else {
