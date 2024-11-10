@@ -13,5 +13,7 @@ public interface BookRepo {
 
     Optional<BookInfo> find(String name, String author);
 
+    void search(String name, String author);
+
     void returnBook(String user, String name, String author);
 }

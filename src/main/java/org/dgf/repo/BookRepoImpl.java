@@ -81,6 +81,16 @@ public class BookRepoImpl implements BookRepo{
     }
 
     @Override
+    public void search(String name, String author) {
+        Book book = new Book(name, author);
+        if(!this.books.containsKey(book)) {
+            return;
+        }
+        BookInfo info = this.books.get(book);
+        Logger.info(book.toString() + info.toString());
+    }
+
+    @Override
     public Optional<BookInfo> find(String name, String author) {
         Book book = new Book(name, author);
         if(!this.books.containsKey(book)) {

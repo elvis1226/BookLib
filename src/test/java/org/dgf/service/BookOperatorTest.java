@@ -64,19 +64,36 @@ public class BookOperatorTest {
     @Test
     public void TestOperator_BorrowAction(){
         BookOperator operator = new BookOperatorImpl(authenticator, bookRepo);
-
+        String book1 = "Cool Guy", inventory = "10", author = "Wo";
+        List<String> arguAddBook1 = List.of("add", book1, author, inventory);
+        operator.process(arguAddBook1);
+        List<String> arguBorrow = List.of("borrow",book1, author);
+        operator.process(arguBorrow);
     }
 
     @Test
     public void TestOperator_ReturnAction(){
         BookOperator operator = new BookOperatorImpl(authenticator, bookRepo);
+        String book1 = "Cool Guy", inventory = "10", author = "Wo";
+        List<String> arguAddBook1 = List.of("add", book1, author, inventory);
+        operator.process(arguAddBook1);
 
+        List<String> arguBorrow = List.of("borrow", book1, author);
+        operator.process(arguBorrow);
+
+        List<String> arguReturn = List.of("return", book1, author);
+        operator.process(arguReturn);
     }
 
     @Test
     public void TestOperator_SearchAction(){
         BookOperator operator = new BookOperatorImpl(authenticator, bookRepo);
+        String book1 = "Cool Guy", inventory = "10", author = "Wo";
+        List<String> arguAddBook1 = List.of("add", book1, author, inventory);
+        operator.process(arguAddBook1);
 
+        List<String> arguSearch = List.of("search", book1, author);
+        operator.process(arguSearch);
     }
 
 }
