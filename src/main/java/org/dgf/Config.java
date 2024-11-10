@@ -9,6 +9,9 @@ import org.dgf.repo.UserRepoImpl;
 import org.dgf.service.*;
 
 public final class Config {
+    private Config() {
+
+    }
 
     public static BookLibManager assemble() {
 

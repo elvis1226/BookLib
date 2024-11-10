@@ -2,6 +2,9 @@ package org.dgf.util;
 
 public final class Logger {
     private static boolean debug;
+    private Logger(){
+
+    }
 
     static {
         debug = Boolean.parseBoolean(System.getenv("debug"));

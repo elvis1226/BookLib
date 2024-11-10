@@ -24,7 +24,6 @@ public class BookOperatorImpl implements BookOperator {
         String command = arguments.get(0);
         Logger.debug("process book lib command " + command);
         this.actions.get(command).execute(arguments);
-
     }
 
     @Override
