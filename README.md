@@ -19,12 +19,15 @@ Simple library management system
 # Run
  
 # Support Commands
-- register admin Alice password1
-- register user Bob password2
-- login Alice password1
-- add "Clean Code" "Robert C. Martin" 5
+- register admin <USER_NAME> <PASSWORD>
+- register user <USER_NAME> <PASSWORD>
+- login <USER_NAME> <PASSWORD>
+- add <BOOK_NAME> <BOOK_INVENTORY>
 - list
-- search "Clean Code" " Robert C. Martin"
-- borrow "Clean Code" " Robert C. Martin"
-- return "Clean Code" " Robert C. Martin"
-- delete "Clean Code" " Robert C. Martin"
+- search <BOOK_NAME>
+- borrow <BOOK_NAME>
+- return <BOOK_NAME>
+- delete <BOOK_NAME>
+
+# Log Screenshot
+- Log_screenshot.jpg

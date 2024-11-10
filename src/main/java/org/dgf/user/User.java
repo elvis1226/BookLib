@@ -1,6 +1,6 @@
 package org.dgf.user;
 
-public class User {
+public abstract class User {
     private final String name;
     private final String password;
 

@@ -13,7 +13,6 @@ public class Main {
         final BookLibManager manager = Config.assemble();
         final Console console = System.console();
         final String delimiter = " ";
-        System.out.println();
 
         while (true) {
             try {
