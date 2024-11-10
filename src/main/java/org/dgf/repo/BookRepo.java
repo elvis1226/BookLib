@@ -3,15 +3,15 @@ package org.dgf.repo;
 import java.util.Optional;
 
 public interface BookRepo {
-    void add(String book, int inventory, String author);
+    void add(String name, int inventory, String author);
 
-    boolean borrow(String user, String book);
+    boolean borrow(String user, String name, String author);
 
-    boolean delete(String book);
+    boolean delete(String name, String author);
 
     void list();
 
-    Optional<BookInfo> find(String book);
+    Optional<BookInfo> find(String name, String author);
 
-    void returnBook(String user, String book);
+    void returnBook(String user, String name, String author);
 }

@@ -7,38 +7,41 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BookRepoImpl implements BookRepo{
-    private Map<String, BookInfo> books;
+    private Map<Book, BookInfo> books;
 
     public BookRepoImpl() {
         this.books = new HashMap<>();
     }
 
     @Override
-    public void add(String book, int inventory, String author) {
+    public void add(String name, int inventory, String author) {
+        Book book = new Book(name, author);
         if (this.books.containsKey(book)){
             BookInfo oldInfo = this.books.get(book);
-            BookInfo newInfo = new BookInfo(inventory+oldInfo.getInventory(), author, oldInfo.getBorrowedByWho());
+            int newInventory = inventory+oldInfo.getInventory();
+            BookInfo newInfo = new BookInfo(newInventory, oldInfo.getBorrowedByWho());
             this.books.put(book, newInfo);
-            Logger.info("Book \"" + book + "\" inventory successfully updated, new inventory: " + inventory );
+            Logger.info("Book \"" + name + "\" inventory successfully updated, new inventory: " + newInventory +".");
         }
         else {
-            this.books.put(book, new BookInfo(inventory, author));
-            Logger.info("Book \"" + book + "\" by " + author + " added successfully, inventory: " + inventory + ".");
+            this.books.put(book, new BookInfo(inventory));
+            Logger.info("Book \"" + name + "\" by " + author + " added successfully, inventory: " + inventory + ".");
         }
     }
 
 
     @Override
-    public boolean borrow(String user, String book) {
+    public boolean borrow(String user, String name, String author) {
+        Book book = new Book(name, author);
         if (!this.books.containsKey(book)) {
-            Logger.warn("The book " + book + " doest exit");
+            Logger.warn("The book " + name + " doest exit");
             return false;
         }
 
         BookInfo oldInfo = this.books.get(book);;
 
         if (oldInfo.getInventory() <= 0) {
-            Logger.warn("All book "  + book + " have been lent out");
+            Logger.warn("All book "  + name + " have been lent out");
             return false;
         }
 
@@ -46,26 +49,26 @@ public class BookRepoImpl implements BookRepo{
         borrowed.addAll(oldInfo.getBorrowedByWho());
         borrowed.add(user);
 
-        BookInfo newInfo = new BookInfo(oldInfo.getInventory() - 1, oldInfo.getAuthor(), borrowed);
+        BookInfo newInfo = new BookInfo(oldInfo.getInventory() - 1, borrowed);
         this.books.put(book, newInfo);
-        Logger.info("Book \"" + book + "\" successfully borrowed");
+        Logger.info("Book \"" + name + "\" successfully borrowed.");
         return true;
     }
 
     @Override
-    public boolean delete(String book) {
-
+    public boolean delete(String name, String author) {
+        Book book = new Book(name, author);
         if(!this.books.containsKey(book)) {
             return true;
         }
         BookInfo info = this.books.get(book);
         if (info.isBorrowed()) {
-            Logger.info("Cannot delete book \"" + book + "\" because it is currently borrowed");
+            Logger.info("Cannot delete book \"" + name + "\" because it is currently borrowed");
             return false;
         }
 
         this.books.remove(book);
-        Logger.info("Book \"" + book + "\" is deleted");
+        Logger.info("Book \"" + name + "\" is deleted");
         return true;
     }
 
@@ -73,12 +76,13 @@ public class BookRepoImpl implements BookRepo{
     public void list() {
         final Iterator<Integer> index = IntStream.range(1, books.size()+1).iterator();
         books.entrySet().forEach(
-                e -> Logger.info(index.next() + ". " + e.getKey() + e.getValue().toString())
+                e -> Logger.info(index.next() + ". " + e.getKey().toString() + e.getValue().toString())
         );
     }
 
     @Override
-    public Optional<BookInfo> find(String book) {
+    public Optional<BookInfo> find(String name, String author) {
+        Book book = new Book(name, author);
         if(!this.books.containsKey(book)) {
             return Optional.empty();
         }
@@ -86,9 +90,10 @@ public class BookRepoImpl implements BookRepo{
     }
 
     @Override
-    public void returnBook(String user, String book) {
+    public void returnBook(String user, String name, String author) {
+        Book book = new Book(name, author);
         if (!this.books.containsKey(book)) {
-            Logger.warn("The book " + book + " doesnt exist");
+            Logger.warn("The book " + book.toString() + " doesnt exist");
             return;
         }
         BookInfo oldInfo = this.books.get(book);
@@ -96,7 +101,8 @@ public class BookRepoImpl implements BookRepo{
                                       .stream()
                                       .filter(x-> !x.equals(user))
                                       .collect(Collectors.toSet());
-        BookInfo newInfo = new BookInfo(oldInfo.getInventory() + 1, oldInfo.getAuthor(), borrowed);
+        BookInfo newInfo = new BookInfo(oldInfo.getInventory() + 1, borrowed);
         this.books.put(book, newInfo);
+        Logger.info("Book \"" + name + "\" successfully returned.");
     }
 }

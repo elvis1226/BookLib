@@ -18,5 +18,6 @@ public class SearchBook extends BookAction {
         }
         String book = arguments.get(1);
         String author = arguments.get(2);
+        super.bookRepo.find(book, author);
     }
 }

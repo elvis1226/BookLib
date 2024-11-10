@@ -6,16 +6,14 @@ import java.util.Set;
 public class BookInfo {
 
     private final int inventory;
-    private final String author;
     private Set<String> borrowedByWho;
 
-    public BookInfo(int inventory, String author) {
-        this(inventory, author, new HashSet<>());
+    public BookInfo(int inventory) {
+        this(inventory, new HashSet<>());
     }
 
-    public BookInfo(int inventory, String author, Set<String> borrowed) {
+    public BookInfo(int inventory, Set<String> borrowed) {
         this.inventory = inventory;
-        this.author = author;
         this.borrowedByWho = borrowed;
     }
 
@@ -25,10 +23,6 @@ public class BookInfo {
 
     public int getInventory() {
         return this.inventory;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public Set<String> getBorrowedByWho() {
@@ -45,6 +39,6 @@ public class BookInfo {
 
     @Override
     public String toString() {
-        return " - " + author + " - Inventory : " + inventory;
+        return " - Inventory : " + inventory;
     }
 }

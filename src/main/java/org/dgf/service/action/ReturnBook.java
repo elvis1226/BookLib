@@ -18,5 +18,6 @@ public class ReturnBook extends BookAction {
         }
         String book = arguments.get(1);
         String author = arguments.get(2);
+        super.bookRepo.returnBook(super.authenticator.getLogonUser(), book, author);
     }
 }

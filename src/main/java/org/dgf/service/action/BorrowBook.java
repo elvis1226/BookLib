@@ -20,6 +20,6 @@ public class BorrowBook extends BookAction {
         String book = arguments.get(1);
         String author = arguments.get(2);
         String user = this.authenticator.getLogonUser();
-        super.bookRepo.borrow(user, book);
+        super.bookRepo.borrow(user, book, author);
     }
 }

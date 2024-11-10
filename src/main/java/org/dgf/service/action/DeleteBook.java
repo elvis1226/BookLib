@@ -18,6 +18,6 @@ public class DeleteBook extends BookAction {
         }
         String book = arguments.get(1);
         String author = arguments.get(2);
-        super.bookRepo.delete(book);
+        super.bookRepo.delete(book, author);
     }
 }

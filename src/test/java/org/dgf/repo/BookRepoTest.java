@@ -12,13 +12,13 @@ public class BookRepoTest {
     @Test
     public void TestAddBook_WhenBookIsNew(){
         final BookRepo bookRepo = new BookRepoImpl();
-        final String book = "Atomic Habits", author = "James Clear";
+        final String name = "Atomic Habits", author = "James Clear";
         final int inventory = 10;
-        bookRepo.add(book, inventory, author);
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        bookRepo.add(name, inventory, author);
+
+        Optional<BookInfo> bookInfo = bookRepo.find(name, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(inventory, bookInfo.get().getInventory());
-        assertEquals(author, bookInfo.get().getAuthor());
     }
 
     @Test
@@ -28,10 +28,9 @@ public class BookRepoTest {
         final int inventory = 10, updated = 5;
         bookRepo.add(book, inventory, author);
         bookRepo.add(book, updated, author);
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        Optional<BookInfo> bookInfo = bookRepo.find(book, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(inventory+updated, bookInfo.get().getInventory());
-        assertEquals(author, bookInfo.get().getAuthor());
     }
 
     @Test
@@ -51,14 +50,13 @@ public class BookRepoTest {
         final int inventory = 10;
         bookRepo.add(book, inventory, author);
 
-        boolean borrowed = bookRepo.borrow(user, book);
+        boolean borrowed = bookRepo.borrow(user, book, author);
         assertTrue(borrowed);
 
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        Optional<BookInfo> bookInfo = bookRepo.find(book, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(inventory-1, bookInfo.get().getInventory());
         assertTrue(bookInfo.get().getBorrowedByWho().contains(user));
-        assertEquals(author, bookInfo.get().getAuthor());
     }
 
     @Test
@@ -68,15 +66,15 @@ public class BookRepoTest {
         final int inventory = 1;
         bookRepo.add(book, inventory, author);
 
-        boolean succeed = bookRepo.borrow(user, book);
+        boolean succeed = bookRepo.borrow(user, book, author);
         assertTrue(succeed);
 
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        Optional<BookInfo> bookInfo = bookRepo.find(book, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(inventory-1, bookInfo.get().getInventory());
         assertTrue(bookInfo.get().getBorrowedByWho().contains(user));
 
-        boolean failed = bookRepo.borrow(user, book);
+        boolean failed = bookRepo.borrow(user, book, author);
         assertTrue(!failed);
     }
 
@@ -86,8 +84,8 @@ public class BookRepoTest {
         final String book = "Atomic Habits", author = "James Clear";
         final int inventory = 10;
         bookRepo.add(book, inventory, author);
-        bookRepo.delete(book);
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        bookRepo.delete(book, author);
+        Optional<BookInfo> bookInfo = bookRepo.find(book, author);
         assertTrue(bookInfo.isEmpty());
     }
 
@@ -97,9 +95,9 @@ public class BookRepoTest {
         final String book = "Atomic Habits", user = "Wang", author = "James Clear";
         final int inventory = 10;
         bookRepo.add(book, inventory, author);
-        bookRepo.borrow(user, book);
+        bookRepo.borrow(user, book, author);
 
-        boolean failed = bookRepo.delete(book);
+        boolean failed = bookRepo.delete(book, author);
         assertTrue(!failed);
     }
 
@@ -110,20 +108,20 @@ public class BookRepoTest {
         final int inventory = 10;
         bookRepo.add(book, inventory, author);
 
-        boolean succeed1 = bookRepo.borrow(user, book);
+        boolean succeed1 = bookRepo.borrow(user, book, author);
         assertTrue(succeed1);
 
-        boolean succeed2 = bookRepo.borrow(user2, book);
+        boolean succeed2 = bookRepo.borrow(user2, book, author);
         assertTrue(succeed2);
 
-        Optional<BookInfo> bookInfo = bookRepo.find(book);
+        Optional<BookInfo> bookInfo = bookRepo.find(book, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(inventory-2, bookInfo.get().getInventory());
         assertTrue(bookInfo.get().getBorrowedByWho().contains(user));
         assertTrue(bookInfo.get().getBorrowedByWho().contains(user2));
 
-        bookRepo.returnBook(user, book);
-        Optional<BookInfo> newInfo = bookRepo.find(book);
+        bookRepo.returnBook(user, book, author);
+        Optional<BookInfo> newInfo = bookRepo.find(book, author);
         assertTrue(newInfo.isPresent());
         assertEquals(inventory-1, newInfo.get().getInventory());
         assertTrue(!newInfo.get().getBorrowedByWho().contains(user));

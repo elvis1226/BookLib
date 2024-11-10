@@ -38,7 +38,7 @@ public class BookOperatorTest {
         String book = "Cool Guy", author = "Wo";
         List<String> arguAddBook = List.of("add", book, author, "10");
         operator.process(arguAddBook);
-        Optional<BookInfo> bookInfo = this.bookRepo.find(book);
+        Optional<BookInfo> bookInfo = this.bookRepo.find(book, author);
         assertTrue(bookInfo.isPresent());
         assertEquals(10, bookInfo.get().getInventory());
     }
