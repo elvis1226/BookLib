@@ -24,7 +24,7 @@ public class Login extends AuthAction {
         String password = arguments.get(2);
 
         if (!this.userRepo.exist(name, password)) {
-            Logger.warn("Failed to login, pls check user name and password");
+            Logger.warn("Failed to login, user doest exist or incorrect user name/password");
             return;
         }
         this.userRepo.login(name);

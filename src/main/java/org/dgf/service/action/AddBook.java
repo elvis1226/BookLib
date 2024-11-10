@@ -15,7 +15,9 @@ public class AddBook extends BookAction {
     @Override
     public void execute(List<String> arguments) {
         if (! super.authenticator.isAdmin()) {
-            Logger.warn("User " + super.authenticator.getLogonUser() + " is not admin");
+            if(!super.authenticator.getLogonUser().isEmpty()) {
+                Logger.warn("User " + super.authenticator.getLogonUser() + " is not admin");
+            }
             return;
         }
         if (arguments.size() != 4) {

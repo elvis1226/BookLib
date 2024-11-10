@@ -28,6 +28,10 @@ public class AuthenticatorImpl implements Authenticator{
     }
 
     public boolean isAdmin(){
+        if(this.userRepo.getLogonUser().isEmpty()) {
+            Logger.warn("please login first");
+            return false;
+        }
         return isAdmin(this.userRepo.getLogonUser());
     }
 
